@@ -1,5 +1,5 @@
 {
-  "name": "y",
+  "name": "Reviews_API",
   "version": "1.0.0",
   "description": "API Service for Project Catwalk reviews section.",
   "main": "index.js",
