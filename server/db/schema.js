@@ -16,24 +16,33 @@ PRODUCT SCHEMA - ONE PER PRODUCT ID - METADATA & REFERENCE TO UNIQUE REVIEW IDS
     0: Number,
     1: Number,
   },
-  characteristics: {     // averages need to be calculatd each timea review written
-    Size_idnum: String,
-    Length_idnum: String,
-    Width: String,
-    Comfort: String,
-    Quality: String,
-    Fit: String,
-  }
   reviews: [          // must be pushed to each time a review written for this product
     review_id: Number, // each a unique identifier
     review_id: Number,
     etc...
   ]
+  characteristics: {
+    size_id: {
+      1: Number,
+      2: Number,
+      3: Number,
+      4: Number,
+      5: Number,
+      average: String,
+    },
+    length_id {},
+    width_id: {},
+    comfort_id: {},
+    quality_id: {},
+    fit_id: {},
+  }
 }
+
+
 
 REVIEW SCHEMA - ONE PER REVIEW
 {
-  review_id: Number, // unique identifier
+  review_id: Number, // unique to each document
   rating: Number,
   summary: String,
   Recommend: Boolean,
@@ -46,4 +55,24 @@ REVIEW SCHEMA - ONE PER REVIEW
   photos: [
     { id: Number, url: String },
   ]
+}
+
+CHARACTERISTICS SCHEMA - ONE PER PRODUCT
+{
+  product_id: Number,   // unique to each document
+  characteristics: {
+    size_id: {
+      1: Number,
+      2: Number,
+      3: Number,
+      4: Number,
+      5: Number,
+      average: String,
+    },
+    length_id {},
+    width_id: {},
+    comfort_id: {},
+    quality_id: {},
+    fit_id: {},
+  }
 }
