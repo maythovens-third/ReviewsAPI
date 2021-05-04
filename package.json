@@ -1,0 +1,31 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "API Service for Project Catwalk reviews section.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test",
+    "server-dev": "npx nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maythovens-third/ReviewsAPI.git"
+  },
+  "author": "Samuel Gasser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maythovens-third/ReviewsAPI/issues"
+  },
+  "homepage": "https://github.com/maythovens-third/ReviewsAPI#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "postgres": "^1.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

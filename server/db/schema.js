@@ -1,7 +1,3 @@
-MONGOOSE SCHEMAS - ONE COLLECTION, TWO SCHEMAS, TWO DOCUMENTS PER PRODUCTID
-
-ONE:MANY - PRODUCT:REVIEWS
-
 PRODUCT SCHEMA - ONE PER PRODUCT ID - METADATA & REFERENCE TO UNIQUE REVIEW IDS
 {
   product_id: Number,  // unique identifier
@@ -16,11 +12,6 @@ PRODUCT SCHEMA - ONE PER PRODUCT ID - METADATA & REFERENCE TO UNIQUE REVIEW IDS
     0: Number,
     1: Number,
   },
-  reviews: [          // must be pushed to each time a review written for this product
-    review_id: Number, // each a unique identifier
-    review_id: Number,
-    etc...
-  ]
   characteristics: {
     size_id: {
       1: Number,
@@ -35,14 +26,18 @@ PRODUCT SCHEMA - ONE PER PRODUCT ID - METADATA & REFERENCE TO UNIQUE REVIEW IDS
     comfort_id: {},
     quality_id: {},
     fit_id: {},
-  }
+  },
+  reviews: [          // DOES THIS EVEN HAVE TO BE HERE? must be pushed to each time a review written for this product
+    { review_id: Number }, // each a unique identifier
+    { review_id: Number }
+    etc...
+  ]
 }
 
-
-
-REVIEW SCHEMA - ONE PER REVIEW
+REVIEW SCHEMA - ONE PER REVIEW, MANY WITH SAME PRODUCT ID
 {
   review_id: Number, // unique to each document
+  product_id: Number,
   rating: Number,
   summary: String,
   Recommend: Boolean,
@@ -56,6 +51,15 @@ REVIEW SCHEMA - ONE PER REVIEW
     { id: Number, url: String },
   ]
 }
+
+
+
+
+
+
+
+
+
 
 CHARACTERISTICS SCHEMA - ONE PER PRODUCT
 {
@@ -76,3 +80,10 @@ CHARACTERISTICS SCHEMA - ONE PER PRODUCT
     fit_id: {},
   }
 }
+
+WAS IN PRODUCT SCHEMA, DONT NEED?
+reviews: [          // DOES THIS EVEN HAVE TO BE HERE? must be pushed to each time a review written for this product
+  review_id: Number, // each a unique identifier
+  review_id: Number,
+  etc...
+]
