@@ -13,13 +13,13 @@ CREATE TABLE reviews (
   id INTEGER PRIMARY KEY,
   product_id INTEGER NOT NULL,
   rating INTEGER,
-  date TIMESTAMP DEFAULT NOW(),
-  summary VARCHAR(60),
+  date TEXT,
+  summary TEXT,
   body TEXT,
   recommended BOOLEAN,
   reported BOOLEAN,
-  reviewer_name VARCHAR(20),
-  reviewer_email VARCHAR(30),
+  reviewer_name TEXT,
+  reviewer_email TEXT,
   response TEXT,
   helpfulness INTEGER,
   CONSTRAINT fk_reviews_products
@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS photos;
 
 CREATE TABLE photos (
   id INTEGER PRIMARY KEY,
-  url VARCHAR(100),
+  url TEXT,
   review_id INTEGER NOT NULL,
   CONSTRAINT fk_photos
     FOREIGN KEY(review_id)
