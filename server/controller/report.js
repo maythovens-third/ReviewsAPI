@@ -2,7 +2,16 @@ var model = require('../model/');
 
 module.exports = {
   report: (req, res) => {
-    console.log('report');
-    // invoke model report
+    var id = req.url.split('/')[2];
+    model.report.report(id, (err) => {
+      if (err) {
+        console.log('report error');
+        res.status(400);
+        res.end();
+      } else {
+        res.status(204);
+        res.end();
+      }
+    })
   }
 }
