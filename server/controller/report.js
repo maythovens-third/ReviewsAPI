@@ -1,7 +1,8 @@
-var model = require('./model');
+var model = require('../model/');
 
 module.exports = {
   report: (req, res) => {
-    // invoke model create
+    console.log('report');
+    // invoke model report
   }
 }

@@ -1,7 +1,8 @@
-var model = require('./model');
+var model = require('../model/');
 
 module.exports = {
   meta: (req, res) => {
-    // invoke model create
+    console.log('meta');
+    // invoke model meta with req info
   }
 }
