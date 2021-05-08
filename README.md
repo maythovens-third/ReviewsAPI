@@ -1,6 +1,6 @@
 # ReviewsAPI
 
-This is an API service that provides consumer review information for a project titled Project Catwalk. Project Catwalk is an e-commerce site with a large quantity of clothing and footwear products. As stated previously, this API service provides all information about the ratings & reviews of a certain product in the catalog. Project Catwalk uses 3 separate services for its required data.
+This is an API service that provides consumer review information for a project titled Project Catwalk. Project Catwalk is an e-commerce site with a large quantity of clothing and footwear products. As stated previously, this API service provides all information about the ratings & reviews of products in the catalog. Project Catwalk uses 3 separate services for its required data.
 
 Current Host:
 The API can currently by found at:
