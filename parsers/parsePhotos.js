@@ -12,7 +12,7 @@ async function cleanPhotos() {
   const rl = readline.createInterface({
     input: inStream,
     output: outStream,
-    CRLF: Infinity
+    crlfDelay: Infinity
   })
 
   rl.on('line', (line) => {

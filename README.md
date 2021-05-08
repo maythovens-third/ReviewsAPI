@@ -30,3 +30,14 @@ dont log by db seeding
 
 sqlfiddle
 
+
+
+reviews temp - make a new one!!!! changed how date works
+chars temp
+photos temp
+chars_reviews temp
+
+write reviews temp to reviews if product id exists in products
+write chars temp to chars if product id exists in products
+write photos temp to photos if review id exists in reviews
+write chars_reviews temp to chars_reviews if review_id exists in reviews AND chars_id exists in chars

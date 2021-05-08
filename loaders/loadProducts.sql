@@ -1,6 +1,6 @@
--- COPY ALL FILES
+-- COPY ALL PRODUCTS
 
 COPY products
-FROM '/Users/samgasser/hackreactor/ReviewsAPI/csv/clean_Product.csv'
+FROM '/Users/samgasser/hackreactor/ReviewsAPI/csv/clean_Product_using_Chars.csv'
 DELIMITER ',' CSV HEADER;
 

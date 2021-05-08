@@ -13,25 +13,33 @@ async function cleanReviews() {
   const rl = readline.createInterface({
     input: inStream,
     output: outStream,
-    CRLF: Infinity
+    crlfDelay: Infinity
   })
 
   rl.on('line', (line) => {
+    let recommendBinary = 0;
+    let reportBinary = 0;
     var row = line.split(',');
     if (row[0] === 'id' || Number(row[0]) < 1) return;
     if (Number(row[1]) < 1) return;
     if (Number(row[2]) < 1 || Number(row[2]) > 5) return;
-    if (!parseInt(row[3])) return;
+    if (!parseInt(row[3]) || new Date(parseInt(row[3])) === 'Invalid Date') return;
     if (row[4].length > 60 || row[4] === '') return;
     if (row[5].length > 1000 || row[5].length < 50) return;
     if (row[6] !== 'true' && row[6] !== 'false') return;
+    if (row[6] === 'true') {
+      recommendBinary = 1;
+    }
     if (row[7] !== 'true' && row[7] !== 'false') return;
+    if (row[7] === 'true') {
+      reportBinary = 1;
+    }
     if (row[8].length > 30 || row[8] === '') return;
     if (row[9].length > 40 || row[9] === '') return;
     if (typeof row[10] !== 'string') return;
     if (Number(row[11]) < 0) return;
 
-    outStream.write(`${row[0]},${row[1]},${row[2]},${parseInt(row[3])},${row[4]},${row[5]},${row[6]},${row[7]},${row[8]},${row[9]},${row[10]},${row[11]}\n`);
+    outStream.write(`${row[0]},${row[1]},${row[2]},${parseInt(row[3])},${row[4]},${row[5]},${recommendBinary},${reportBinary},${row[8]},${row[9]},${row[10]},${row[11]}\n`);
   })
 }
 

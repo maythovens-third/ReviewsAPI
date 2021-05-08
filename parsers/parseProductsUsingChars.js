@@ -1,13 +1,14 @@
 const fs = require('fs');
 const readline = require('readline');
 
-async function cleanCharacteristics() {
+
+async function cleanProductsWithChars() {
   var source = './csv/characteristics.csv';
-  var destination = './csv/cleanCharacteristics.csv';
+  var destination = './csv/clean_Product_using_Chars.csv';
   const inStream = fs.createReadStream(source);
   const outStream = fs.createWriteStream(destination);
 
-  outStream.write('id, product_id, name\n');
+  outStream.write('id\n');
 
   const rl = readline.createInterface({
     input: inStream,
@@ -15,21 +16,16 @@ async function cleanCharacteristics() {
     crlfDelay: Infinity
   })
 
+  var lastId = 0;
+
   rl.on('line', (line) => {
     var row = line.split(',');
-    var chars = {
-      Quality: 1,
-      Length: 1,
-      Fit: 1,
-      Size: 1,
-      Width: 1,
-      Comfort: 1,
-    };
-    if (isNaN(row[0]) || row[0] < 1) return;
     if (isNaN(row[1]) || row[1] < 1) return;
-    if (!row[2] || row[2] === '') return;
-    outStream.write(`${row[0]},${row[1]},${row[2]}\n`);
+    if (row[1] <= lastId) return;
+    var difference = Number(row[1]) - lastId;
+    lastId += difference;
+    outStream.write(`${row[1]}\n`);
   })
 }
 
-cleanCharacteristics();
+cleanProductsWithChars();
