@@ -131,8 +131,8 @@ PUT /reviews/:review_id/helpful
   Parameters:
     review_id - integer - Required ID of the review to update
 
-  Response:
-    STATUS 204 NO CONTENT
+    Response:
+      STATUS 204 NO CONTENT
 
 
 PUT /reviews/:review_id/report
