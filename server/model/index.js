@@ -1,6 +1,6 @@
-exports.retrieveList = require('./retrieveList.js');
-exports.retrieveMeta = require('./retrieveMeta.js');
-exports.insertReview = require('./insertReview.js');
-exports.helpful = require('./helpful.js');
+exports.list = require('./retrieveList.js');
+exports.meta = require('./retrieveMeta.js');
+exports.create = require('./insertReview.js');
+exports.helpful = require('./incrementHelpful.js');
 exports.report = require('./report.js');
 
