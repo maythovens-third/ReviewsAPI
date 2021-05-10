@@ -5,8 +5,6 @@ module.exports = {
     // insert into reviews all the review information - including default values
     // insert into photos all the photo urls - with each one getting the review_id that gets created by inserting reviews
     // insert into chars all the chars names/values/product_id, using review_id that gets created by inserting reviews
-    var photoParams = [];
-    var charsParams = [];
     var date = Date.now();
 
     var reviewQuery = `
