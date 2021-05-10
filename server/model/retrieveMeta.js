@@ -4,7 +4,7 @@ module.exports = {
   retrieveMeta: (productId, callback) => {
     var reviewsQuery = `SELECT rating, recommended FROM reviews WHERE product_id = ${productId};`;
     var charsQuery = `SELECT id, name FROM characteristics WHERE product_id = ${productId};`;
-    var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE characteristic_id IN (SELECT id FROM characteristics WHERE product_id = ${productId}) LIMIT 1000;`;
+    var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE characteristic_id IN (SELECT id FROM characteristics WHERE product_id = ${productId});`;
 
     db.query(reviewsQuery, (reviewsErr, reviewsData) => {
 
@@ -78,44 +78,8 @@ module.exports = {
               }
             })
           }
-
         })
       }
     })
   }
 }
-
-
-
-// explain analyze
-
-// {
-//   "product_id": "2",
-//   "ratings": {
-//     2: 1,
-//     3: 1,
-//     4: 2,
-//     // ...
-//   },
-//   "recommended": {
-//     0: 5
-//     // ...
-//   },
-//   "characteristics": {
-//     "Size": {
-//       "id": 14,
-//       "value": "4.0000"
-//     },
-//     "Width": {
-//       "id": 15,
-//       "value": "3.5000"
-//     },
-//     "Comfort": {
-//       "id": 16,
-//       "value": "4.0000"
-//     },
-//     // ...
-//   }
-
-// SELECT characteristic_id, value FROM reviews_characteristics WHERE review_id IN (SELECT review_id FROM reviews WHERE product_id = 3);
-//             var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE review_id IN (SELECT review_id FROM reviews WHERE product_id = 25) LIMIT 100;`;
