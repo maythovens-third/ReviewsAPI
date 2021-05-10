@@ -1,15 +1,14 @@
 const db = require('../db');
 
 module.exports = {
-  retrieveMeta: (id, callback) => {
-    var reviewsQuery = `SELECT rating, recommended FROM reviews WHERE product_id = ${id} LIMIT 25;`;
-    var charsQuery = `SELECT id, name FROM characteristics WHERE product_id = ${id} LIMIT 25;`;
-    var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE characteristic_id IN (SELECT id FROM characteristics WHERE product_id = ${id}) LIMIT 1000;`;
+  retrieveMeta: (productId, callback) => {
+    var reviewsQuery = `SELECT rating, recommended FROM reviews WHERE product_id = ${productId};`;
+    var charsQuery = `SELECT id, name FROM characteristics WHERE product_id = ${productId};`;
+    var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE characteristic_id IN (SELECT id FROM characteristics WHERE product_id = ${productId}) LIMIT 1000;`;
 
     db.query(reviewsQuery, (reviewsErr, reviewsData) => {
 
       if (reviewsErr) {
-        console.log('fail reviews query', reviewsErr);
         callback(reviewsErr);
 
       } else {
@@ -18,7 +17,6 @@ module.exports = {
         db.query(charsQuery, (charsErr, charsData) => {
 
           if (charsErr) {
-            console.log('fail chars query', charsErr);
             callback(charsErr);
 
           } else {
@@ -26,14 +24,9 @@ module.exports = {
             db.query(reviewsCharsQuery, (reviewCharsErr, reviewsCharsData) => {
 
               if (reviewCharsErr) {
-                console.log('fail reviews_chars query', reviewCharsErr);
                 callback(reviewCharsErr);
 
               } else {
-
-                console.log('meta log1', reviewsData);
-                console.log('meta log2', charsData);
-                console.log('meta log3', reviewsCharsData);
 
                 var ratingsTally = {};
                 var recommendTally = { 0: 0, 1: 0};
@@ -76,7 +69,7 @@ module.exports = {
                 });
 
                 var formattedData = {
-                  product_id: id,
+                  product_id: productId,
                   ratings: ratingsTally,
                   recommended: recommendTally,
                   characteristics: charsMeta
