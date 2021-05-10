@@ -7,31 +7,20 @@ module.exports = {
     var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE characteristic_id IN (SELECT id FROM characteristics WHERE product_id = ${productId});`;
 
     db.query(reviewsQuery, (reviewsErr, reviewsData) => {
-
       if (reviewsErr) {
         callback(reviewsErr);
-
       } else {
-
-
         db.query(charsQuery, (charsErr, charsData) => {
-
           if (charsErr) {
             callback(charsErr);
-
           } else {
-
             db.query(reviewsCharsQuery, (reviewCharsErr, reviewsCharsData) => {
-
               if (reviewCharsErr) {
                 callback(reviewCharsErr);
-
               } else {
-
                 var ratingsTally = {};
                 var recommendTally = { 0: 0, 1: 0};
                 var charsMeta = {};
-
                 reviewsData.forEach(review => {
                   if (!ratingsTally[review.rating]) {
                     ratingsTally[review.rating] = 1;
@@ -40,7 +29,6 @@ module.exports = {
                   }
                   recommendTally[review.recommended]++;
                 })
-
                 var sumsHolder = {};
                 var totalsHolder = {};
                 reviewsCharsData.forEach(relation => {
@@ -52,13 +40,11 @@ module.exports = {
                     totalsHolder[relation.characteristic_id]++;
                   }
                 })
-
                 var meanHolder = {};
                 for (var sum in sumsHolder) {
                   var mean = (sumsHolder[sum] / totalsHolder[sum]).toFixed(3).toString();
                   meanHolder[sum] = mean;
                 }
-
                 charsData.forEach(char => {
                   if (!charsMeta[char.name]) {
                     charsMeta[char.name] = {
@@ -67,7 +53,6 @@ module.exports = {
                     };
                   }
                 });
-
                 var formattedData = {
                   product_id: productId,
                   ratings: ratingsTally,
