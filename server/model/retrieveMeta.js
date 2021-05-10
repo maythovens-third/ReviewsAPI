@@ -2,54 +2,84 @@ const db = require('../db');
 
 module.exports = {
   retrieveMeta: (id, callback) => {
-    console.log('hello');
-    // select ratings, recommended from reviews
-    // select characteristic_id, value from reviews_characteristics where product_id equals id in characteristics
-    // select id, name from characteristics where product_id = id
+    var reviewsQuery = `SELECT rating, recommended FROM reviews WHERE product_id = ${id} LIMIT 25;`;
+    var charsQuery = `SELECT id, name FROM characteristics WHERE product_id = ${id} LIMIT 25;`;
+    var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE characteristic_id IN (SELECT id FROM characteristics WHERE product_id = ${id}) LIMIT 1000;`;
 
-    // get ratings/recommended from EVERY reviews record where product_id = id
-    reviewsQuery = `SELECT rating, recommended FROM reviews WHERE product_id = 25 LIMIT 25;`;
-    db.query(reviewsQuery, (err, reviewsData) => {
-      if (err) {
-        console.log('fail reviews query');
-        callback(err);
+    db.query(reviewsQuery, (reviewsErr, reviewsData) => {
+
+      if (reviewsErr) {
+        console.log('fail reviews query', reviewsErr);
+        callback(reviewsErr);
+
       } else {
-        // get name, id from EVERY chars record where product_id = id
-        var charsQuery = `SELECT id, name FROM characteristics WHERE product_id = 25 LIMIT 25;`;
-        db.query(charsQuery, (err, charsData) => {
-          if (err) {
-            console.log('fail chars query');
-            callback(err);
+
+
+        db.query(charsQuery, (charsErr, charsData) => {
+
+          if (charsErr) {
+            console.log('fail chars query', charsErr);
+            callback(charsErr);
+
           } else {
-            // data 2 for each -
-            // select value from reviews_chars where
 
+            db.query(reviewsCharsQuery, (reviewCharsErr, reviewsCharsData) => {
 
+              if (reviewCharsErr) {
+                console.log('fail reviews_chars query', reviewCharsErr);
+                callback(reviewCharsErr);
 
-
-
-            // console.log('charsdata');
-            // // get value, char_id from EVERY reviews_chars record WHERE the review_id points to a review that has a product_id = id
-            var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE review_id IN (SELECT review_id FROM reviews WHERE product_id = 25) LIMIT 100;`;
-            db.query(reviewsCharsQuery, (err, reviewsCharsData) => {
-              if (err) {
-                console.log('fail reviews_chars query');
-                callback(err);
               } else {
+
                 console.log('meta log1', reviewsData);
                 console.log('meta log2', charsData);
                 console.log('meta log3', reviewsCharsData);
 
-                var ratingsTally = {};  // sum all ratings 1-5 from reviews and put inside this object
-                var recommendTally = {};  // sum all recommends 1, 2 from reviews and put inside this object
-                var chars = {};
+                var ratingsTally = {};
+                var recommendTally = { 0: 0, 1: 0};
+                var charsMeta = {};
 
-                // change the data into the desired shape
+                reviewsData.forEach(review => {
+                  if (!ratingsTally[review.rating]) {
+                    ratingsTally[review.rating] = 1;
+                  } else {
+                    ratingsTally[review.rating]++;
+                  }
+                  recommendTally[review.recommended]++;
+                })
+
+                var sumsHolder = {};
+                var totalsHolder = {};
+                reviewsCharsData.forEach(relation => {
+                  if (!sumsHolder[relation.characteristic_id]) {
+                    sumsHolder[relation.characteristic_id] = relation.value;
+                    totalsHolder[relation.characteristic_id] = 1;
+                  } else {
+                    sumsHolder[relation.characteristic_id] += relation.value;
+                    totalsHolder[relation.characteristic_id]++;
+                  }
+                })
+
+                var meanHolder = {};
+                for (var sum in sumsHolder) {
+                  var mean = (sumsHolder[sum] / totalsHolder[sum]).toFixed(3).toString();
+                  meanHolder[sum] = mean;
+                }
+
+                charsData.forEach(char => {
+                  if (!charsMeta[char.name]) {
+                    charsMeta[char.name] = {
+                      id: char.id,
+                      value: meanHolder[char.id]
+                    };
+                  }
+                });
+
                 var formattedData = {
                   product_id: id,
                   ratings: ratingsTally,
                   recommended: recommendTally,
-                  characteristics: charsData
+                  characteristics: charsMeta
                 }
                 callback(null, formattedData);
               }

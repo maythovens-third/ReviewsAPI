@@ -6,6 +6,7 @@ module.exports = {
     // insert into photos all the photo urls - with each one getting the review_id that gets created by inserting reviews
     // insert into chars all the chars names/values/product_id, using review_id that gets created by inserting reviews
     var date = Date.now();
+    console.log(chars);
 
     var reviewQuery = `
     INSERT INTO reviews (product_id, rating, date, summary, body, recommended, reviewer_name, reviewer_email)
@@ -16,15 +17,17 @@ module.exports = {
         callback(reviewInsertErr);
       } else {
         var charsNames = Object.keys(chars);
+        console.log('cn', charsNames);
         var charsQuery = `INSERT INTO reviews_characteristics (characteristic_id, review_id, value) VALUES `;
         charsNames.forEach(name => {
-          var valuesString = (`(${chars[name].id}, ${reviewRecord.insertId}, ${chars[name].value}), `);
+          var valuesString = (`(${name}, ${reviewRecord.insertId}, ${chars[name]}), `);
           charsQuery += (valuesString);
         })
         charsQuery = charsQuery.slice(0, -2);
         charsQuery += (`;`);
         db.query(charsQuery, (charInsertErr) => {
           if (charInsertErr) {
+            console.log('err', charInsertErr);
             var rollbackQueryString = `DELETE FROM reviews WHERE id = ${reviewRecord.insertId}`
             db.query(rollbackQueryString, (reviewDeleteErr) => {
               if (reviewDeleteErr) {
