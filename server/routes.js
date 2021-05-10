@@ -1,7 +1,7 @@
 const controller = require('./controller');
 var router = require('express').Router();
 
-router.get('/reviews/', controller.list.list);
+router.get('/reviews', controller.list.list);
 
 router.get('/reviews/meta/', controller.meta.meta);
 

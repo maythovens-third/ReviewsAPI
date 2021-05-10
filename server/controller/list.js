@@ -10,7 +10,7 @@ module.exports = {
       if (err) {
         console.log('error retrieving list');
         res.status(400);
-        res.end();
+        res.send(err);
       } else {
         res.status(200);
         res.send(data);
