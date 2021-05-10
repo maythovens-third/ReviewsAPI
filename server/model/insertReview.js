@@ -7,19 +7,15 @@ module.exports = {
     // insert into chars all the chars names/values/product_id, using review_id that gets created by inserting reviews
     var photoParams = [];
     var charsParams = [];
-    console.log('insertcharsshape', chars);
-    console.log('reviewshape', review);
-
     var date = Date.now();
 
     var reviewQuery = `
     INSERT INTO reviews (product_id, rating, date, summary, body, recommended, reviewer_name, reviewer_email)
     VALUES (${review[0]}, ${review[1]}, '${date}', '${review[2]}', '${review[3]}', ${review[4]}, '${review[5]}', '${review[6]}');
     `;
-    db.query(reviewQuery, (err, reviewRecord) => {
-      if (err) {
-        console.log('reviewinsert fail', err);
-        callback(err);
+    db.query(reviewQuery, (reviewInsertErr, reviewRecord) => {
+      if (reviewInsertErr) {
+        callback(reviewInsertErr);
       } else {
         var charsNames = Object.keys(chars);
         var charsQuery = `INSERT INTO reviews_characteristics (characteristic_id, review_id, value) VALUES `;
@@ -29,13 +25,17 @@ module.exports = {
         })
         charsQuery = charsQuery.slice(0, -2);
         charsQuery += (`;`);
-        db.query(charsQuery, (err) => {
-          if (err) {
-            // ROLLBACK REVIEW!!!!!!!!!!!!!
-            console.log('charsinsert fail', err);
-            callback(err);
+        db.query(charsQuery, (charInsertErr) => {
+          if (charInsertErr) {
+            var rollbackQueryString = `DELETE FROM reviews WHERE id = ${reviewRecord.insertId}`
+            db.query(rollbackQueryString, (reviewDeleteErr) => {
+              if (reviewDeleteErr) {
+                callback(reviewDeleteErr);
+              } else {
+                callback(charInsertErr);
+              }
+            });
           } else {
-            console.log('charsinsert worked');
             if (photos.length > 0) {
               var photosQuery = `INSERT INTO photos (review_id, url) VALUES `;
               photos.forEach(url => {
@@ -44,15 +44,24 @@ module.exports = {
               })
               photosQuery = photosQuery.slice(0, -2);
               photosQuery += `;`;
-              console.log('photosQuery', photosQuery);
-              db.query(photosQuery, (err) => {
-                if (err) {
-                  console.log('photos fail', err);
-                  // ROLLBACK REVIEWS
-                  // ROLLBACK CHARS
-                  callback(err);
+              db.query(photosQuery, (photoInsertErr) => {
+                if (photoInsertErr) {
+                  var rollbackReviews = `DELETE FROM reviews WHERE id = ${reviewRecord.insertId};`
+                  db.query(rollbackReviews, (deleteReviewsErr) => {
+                    if (deleteReviewsErr) {
+                      callback(deleteReviewsErr);
+                    } else {
+                      var rollbackChars = `DELETE FROM photos WHERE review_id = ${reviewRecord.insertId};`;
+                      db.query(rollbackChars, (deleteCharsErr) => {
+                        if (deleteCharsErr) {
+                          callback(deleteCharsErr);
+                        } else {
+                          callback(photoInsertErr);
+                        }
+                      })
+                    }
+                  })
                 } else {
-                  console.log('photos worked');
                   callback(null);
                 }
               })
@@ -64,30 +73,5 @@ module.exports = {
 
       }
     })
-
-
-    if (photos.length > 0) {
-      photos.forEach(photo => {
-        // create as many photo insert statements as I need
-      })
-    }
-
-    if (chars.length > 0) {
-      chars.forEach(char => {
-        // create as many char insert statements as I need
-      })
-    }
-
-
-    // start with review query
-    // photos.foreach
-      // concat more onto the query
-    // chars.foreach
-      // concat more onto the query
-
-    //
-
-
-
   }
 }
