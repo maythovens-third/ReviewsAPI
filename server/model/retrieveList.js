@@ -54,7 +54,6 @@ module.exports = {
               };
               responseObj.results.push(review);
             })
-
             photosData.forEach(photo => {
               for (var review in responseObj.results) {
                 if (photo.review_id === responseObj.results[review].review_id) {
