@@ -2,7 +2,7 @@
 USE reviewAPI;
 
 LOAD DATA
-LOCAL INFILE '/Users/samgasser/hackreactor/ReviewsAPI/csv/clean_Photos.csv'
+LOCAL INFILE '/Users/samgasser/hackreactor/ReviewsAPI/csv/clean_noQ_Photos.csv'
 INTO TABLE photos
 FIELDS TERMINATED BY ','
 IGNORE 1 LINES;

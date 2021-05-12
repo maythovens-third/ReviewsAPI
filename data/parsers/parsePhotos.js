@@ -3,7 +3,7 @@ const readline = require('readline');
 
 async function cleanPhotos() {
   var source = './csv/reviews_photos.csv';
-  var destination = './csv/cleanPhotos.csv';
+  var destination = './csv/clean_noQ_Photos.csv';
   const inStream = fs.createReadStream(source);
   const outStream = fs.createWriteStream(destination);
 
@@ -21,7 +21,8 @@ async function cleanPhotos() {
     if (isNaN(row[1]) || row[1] < 1) return;
     var url = row[2];
     if (!url) return;
-    outStream.write(`${row[0]},${row[1]},${row[2]}\n`);
+    if (row[2][0] !== `"` || row[2][row[2].length - 1] !== `"`) return;
+    outStream.write(`${row[0]},${row[1]},${row[2].substring(1, row[2].length - 1)}\n`);
   })
 }
 

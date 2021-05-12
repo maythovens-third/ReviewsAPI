@@ -15,7 +15,7 @@ module.exports = {
     } else {
       orderFields = 'helpfulness DESC, date DESC';
     }
-    var reviewsQuery = `SELECT * FROM reviews WHERE product_id = ${productId} ORDER BY ${orderFields} LIMIT ${count} OFFSET ${((page - 1) * count)}`;
+    var reviewsQuery = `SELECT * FROM reviews WHERE product_id = ${productId} AND reported = 0 ORDER BY ${orderFields} LIMIT ${count} OFFSET ${((page - 1) * count)}`;
 
     db.query(reviewsQuery, (reviewsErr, reviewsData) => {
       if (reviewsErr) {
