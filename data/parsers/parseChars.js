@@ -3,7 +3,7 @@ const readline = require('readline');
 
 async function cleanCharacteristics() {
   var source = './csv/characteristics.csv';
-  var destination = './csv/cleanCharacteristics.csv';
+  var destination = './csv/clean_noQ_Characteristics.csv';
   const inStream = fs.createReadStream(source);
   const outStream = fs.createWriteStream(destination);
 
@@ -28,7 +28,7 @@ async function cleanCharacteristics() {
     if (isNaN(row[0]) || row[0] < 1) return;
     if (isNaN(row[1]) || row[1] < 1) return;
     if (!row[2] || row[2] === '') return;
-    outStream.write(`${row[0]},${row[1]},${row[2]}\n`);
+    outStream.write(`${row[0]},${row[1]},${row[2].substring(1, row[2].length -1)}\n`);
   })
 }
 

@@ -4,34 +4,23 @@ module.exports = {
   retrieveMeta: (productId, callback) => {
     var reviewsQuery = `SELECT rating, recommended FROM reviews WHERE product_id = ${productId};`;
     var charsQuery = `SELECT id, name FROM characteristics WHERE product_id = ${productId};`;
-    var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE characteristic_id IN (SELECT id FROM characteristics WHERE product_id = ${productId}) LIMIT 1000;`;
+    var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE characteristic_id IN (SELECT id FROM characteristics WHERE product_id = ${productId});`;
 
     db.query(reviewsQuery, (reviewsErr, reviewsData) => {
-
       if (reviewsErr) {
         callback(reviewsErr);
-
       } else {
-
-
         db.query(charsQuery, (charsErr, charsData) => {
-
           if (charsErr) {
             callback(charsErr);
-
           } else {
-
             db.query(reviewsCharsQuery, (reviewCharsErr, reviewsCharsData) => {
-
               if (reviewCharsErr) {
                 callback(reviewCharsErr);
-
               } else {
-
                 var ratingsTally = {};
                 var recommendTally = { 0: 0, 1: 0};
                 var charsMeta = {};
-
                 reviewsData.forEach(review => {
                   if (!ratingsTally[review.rating]) {
                     ratingsTally[review.rating] = 1;
@@ -40,7 +29,6 @@ module.exports = {
                   }
                   recommendTally[review.recommended]++;
                 })
-
                 var sumsHolder = {};
                 var totalsHolder = {};
                 reviewsCharsData.forEach(relation => {
@@ -52,13 +40,11 @@ module.exports = {
                     totalsHolder[relation.characteristic_id]++;
                   }
                 })
-
                 var meanHolder = {};
                 for (var sum in sumsHolder) {
                   var mean = (sumsHolder[sum] / totalsHolder[sum]).toFixed(3).toString();
                   meanHolder[sum] = mean;
                 }
-
                 charsData.forEach(char => {
                   if (!charsMeta[char.name]) {
                     charsMeta[char.name] = {
@@ -67,7 +53,6 @@ module.exports = {
                     };
                   }
                 });
-
                 var formattedData = {
                   product_id: productId,
                   ratings: ratingsTally,
@@ -78,44 +63,8 @@ module.exports = {
               }
             })
           }
-
         })
       }
     })
   }
 }
-
-
-
-// explain analyze
-
-// {
-//   "product_id": "2",
-//   "ratings": {
-//     2: 1,
-//     3: 1,
-//     4: 2,
-//     // ...
-//   },
-//   "recommended": {
-//     0: 5
-//     // ...
-//   },
-//   "characteristics": {
-//     "Size": {
-//       "id": 14,
-//       "value": "4.0000"
-//     },
-//     "Width": {
-//       "id": 15,
-//       "value": "3.5000"
-//     },
-//     "Comfort": {
-//       "id": 16,
-//       "value": "4.0000"
-//     },
-//     // ...
-//   }
-
-// SELECT characteristic_id, value FROM reviews_characteristics WHERE review_id IN (SELECT review_id FROM reviews WHERE product_id = 3);
-//             var reviewsCharsQuery = `SELECT characteristic_id, value FROM reviews_characteristics WHERE review_id IN (SELECT review_id FROM reviews WHERE product_id = 25) LIMIT 100;`;

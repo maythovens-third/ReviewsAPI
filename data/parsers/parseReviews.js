@@ -4,7 +4,7 @@ const readline = require('readline');
 
 async function cleanReviews() {
   var source = './csv/reviews.csv';
-  var destination = './csv/clean_Reviews.csv';
+  var destination = './csv/clean_noQ_Reviews.csv';
   const inStream = fs.createReadStream(source);
   const outStream = fs.createWriteStream(destination);
 
@@ -39,7 +39,7 @@ async function cleanReviews() {
     if (typeof row[10] !== 'string') return;
     if (Number(row[11]) < 0) return;
 
-    outStream.write(`${row[0]},${row[1]},${row[2]},${parseInt(row[3])},${row[4]},${row[5]},${recommendBinary},${reportBinary},${row[8]},${row[9]},${row[10]},${row[11]}\n`);
+    outStream.write(`${row[0]},${row[1]},${row[2]},${parseInt(row[3])},${row[4].substring(1, row[4].length - 1)},${row[5].substring(1, row[5].length - 1)},${recommendBinary},${reportBinary},${row[8].substring(1, row[8].length - 1)},${row[9].substring(1, row[9].length - 1)},${row[10]},${row[11]}\n`);
   })
 }
 
