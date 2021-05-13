@@ -1,8 +1,8 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
+  host: '54.149.187.173',
+  user: 'api',
   password: 'password',
   database: 'reviewAPI'
 })
