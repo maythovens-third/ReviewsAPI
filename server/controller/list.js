@@ -2,6 +2,7 @@ var model = require('../model/');
 
 module.exports = {
   list: (req, res) => {
+    console.log('incoming request to list');
     var id = req.query.product_id;
     var page = req.query.page;
     var count = req.query.count;

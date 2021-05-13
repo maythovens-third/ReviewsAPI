@@ -1,15 +1,18 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-  host: '54.149.187.173',
+  host: '35.165.40.28',
   user: 'api',
-  password: 'password',
+  password: 'password1',
   database: 'reviewAPI'
 })
 
 db.connect(err => {
-  if (err) console.log(`Cannot connect to the MySQL database: ${err}`);
-  console.log(`Connected to MySQL database reviewAPI.`);
+  if (err) {
+    console.log(`Cannot connect to the MySQL database: ${err}`);
+  } else {
+    console.log(`Connected to MySQL database reviewAPI.`);
+  }
 });
 
 module.exports = db;
