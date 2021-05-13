@@ -1,7 +1,7 @@
 const controller = require('./controller');
 var router = require('express').Router();
 
-router.get('/loaderio-965daee38be22f32824976e869fc84e1', controller.loaderio.sendToken);
+router.get('/loaderio-965daee38be22f32824976e869fc84e1/', controller.loaderio.sendToken);
 
 router.get('/reviews', controller.list.list);
 
