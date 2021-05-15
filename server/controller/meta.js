@@ -1,7 +1,7 @@
 var model = require('../model/');
 
 module.exports = {
-  meta: (req, res) => {
+  getMeta: (req, res) => {
     var id = req.query.product_id;
     model.meta.retrieveMeta(id, (err, data) => {
       if (err) {

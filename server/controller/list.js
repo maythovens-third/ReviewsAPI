@@ -1,12 +1,8 @@
 var model = require('../model/');
 
 module.exports = {
-  list: (req, res) => {
-    var id = req.query.product_id;
-    var page = req.query.page;
-    var count = req.query.count;
-    var sort = req.query.sort;
-    model.list.retrieveList(id, page, count, sort, (err, data) => {
+  getList: (req, res) => {
+    model.list.retrieveList(req.query, (err, data) => {
       if (err) {
         console.log('error retrieving list');
         res.status(400);

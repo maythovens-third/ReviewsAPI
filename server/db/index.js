@@ -1,11 +1,18 @@
 const mysql = require('mysql');
 
+// const db = mysql.createConnection({
+//   host: '18.237.83.39',
+//   user: 'api',
+//   password: 'password1',
+//   database: 'reviewAPI'
+// })
+
 const db = mysql.createConnection({
-  host: '18.237.83.39',
-  user: 'api',
-  password: 'password1',
+  user: 'root',
+  password: 'password',
   database: 'reviewAPI'
 })
+
 
 db.connect(err => {
   if (err) {

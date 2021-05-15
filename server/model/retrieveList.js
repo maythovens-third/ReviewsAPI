@@ -1,7 +1,11 @@
 const db = require('../db');
 
 module.exports = {
-  retrieveList: (productId, page, count, sort, callback) => {
+  retrieveList: (params, callback) => {
+    var productId = params.product_id;
+    var page = params.page;
+    var count = params.count;
+    var sort = params.sort;
     if (!productId || !page || !count || !sort) {
       callback('Missing query parameters');
       return;
