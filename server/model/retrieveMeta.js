@@ -20,7 +20,7 @@ module.exports = {
               if (reviewCharsErr) {
                 callback(reviewCharsErr);
               } else {
-                callback(null, metaHelpers.formatData(productId, reviewsData, charsData, reviewsCharsData));
+                callback(null, metaHelpers.formatMetaData(productId, reviewsData, charsData, reviewsCharsData));
               }
             })
           }

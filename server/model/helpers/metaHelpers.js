@@ -1,7 +1,7 @@
 const db = require('../../db');
 
 module.exports = {
-  formatData: (id, reviewsData, charsData, reviewsCharsData) => {
+  formatMetaData: (id, reviewsData, charsData, reviewsCharsData) => {
     var ratingsTally = {};
     var recommendTally = { 0: 0, 1: 0};
     var charsMeta = {};

@@ -69,3 +69,34 @@ module.exports = {
     })
   }
 }
+
+
+// insertReview(review, photos, chars, callback)
+  // insertReviewsTable(review, (reviewErr, reviewRecord) => {}
+    // if err -
+  // callback(reviewErr)
+    // else
+  // insertCharsTable(charsquery, (charsErr) => {})
+    // if err
+      // rollback reviews
+        // if err
+          // callback(reviewrollback error)
+        // else
+          // callback(char insert err)
+    // else
+      // if there are photos
+        // insertPhotosTable(photos, (photosErr) => {})
+          // if (photosErr) {
+            // rollback reviews
+              // if rollback reviews err
+                // callback(rollback reviews error)
+              // else
+                // rollback chars
+                  // if rollback chars error
+                    // callback(rollback chars error)
+                  // else
+                    // callback(photosErr)
+          // else
+            // callback(null)
+      // else
+        // callback(null)
