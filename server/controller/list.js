@@ -4,8 +4,8 @@ module.exports = {
   getList: (req, res) => {
     model.list.retrieveList(req.query, (err, data) => {
       if (err) {
-        console.log('error retrieving list');
-        res.status(400);
+        console.log('error getting list');
+        res.status(404);
         res.send(err);
       } else {
         res.status(200);

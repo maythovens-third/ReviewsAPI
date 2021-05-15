@@ -5,8 +5,8 @@ module.exports = {
     var id = req.query.product_id;
     model.meta.retrieveMeta(id, (err, data) => {
       if (err) {
-        console.log('error retrieving meta');
-        res.status(400);
+        console.log('error getting meta');
+        res.status(404);
         res.end();
       } else {
         res.status(200);

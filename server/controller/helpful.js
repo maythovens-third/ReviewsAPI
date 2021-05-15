@@ -6,7 +6,7 @@ module.exports = {
     model.helpful.increment(id, (err) => {
       if (err) {
         console.log('helpful increment error');
-        res.status(400);
+        res.status(404);
         res.end();
       } else {
         res.status(204);

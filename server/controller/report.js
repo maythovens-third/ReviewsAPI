@@ -6,7 +6,7 @@ module.exports = {
     model.report.report(id, (err) => {
       if (err) {
         console.log('report error');
-        res.status(400);
+        res.status(404);
         res.end();
       } else {
         res.status(204);
