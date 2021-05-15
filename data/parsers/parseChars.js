@@ -17,14 +17,6 @@ async function cleanCharacteristics() {
 
   rl.on('line', (line) => {
     var row = line.split(',');
-    var chars = {
-      Quality: 1,
-      Length: 1,
-      Fit: 1,
-      Size: 1,
-      Width: 1,
-      Comfort: 1,
-    };
     if (isNaN(row[0]) || row[0] < 1) return;
     if (isNaN(row[1]) || row[1] < 1) return;
     if (!row[2] || row[2] === '') return;
