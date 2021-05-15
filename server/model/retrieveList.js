@@ -1,4 +1,3 @@
-const db = require('../db');
 const listHelpers = require('./helpers/listHelpers.js');
 
 module.exports = {
