@@ -4,7 +4,7 @@ This is an API service that provides consumer review information for a project t
 
 Current Host:
 The API can currently by found at:
-       http://placeholderaddress.com
+       http://<address>
 
 
 Use of Parameters:
@@ -14,7 +14,7 @@ In an HTTP GET request, the parameters are sent as a query string.
 In an HTTP POST or PUT request, the parameters are not send with the URI, but in the request body. Parameters noted for each route below follow this standard.
 
 
-GET /reviews/
+GET /reviews
   Returns a list of reviews for a given product. This list does not include any reviews that have been reported by a user viewing them on the client.
   Query Parameters:
     page       - integer - Selects the page of results to return            - Default 1
