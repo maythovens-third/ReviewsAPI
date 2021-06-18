@@ -9,7 +9,7 @@
 5. [Challenges](#challenges)
 6. [Scaling](#scaling)
 7. [Documentation](#documentation)
-8. [What Next?](#whatsnext)
+8. [Future Improvements](#futureimprovements)
 
 ## Introduction
 
@@ -59,16 +59,16 @@ npm run server-dev
 *  GET `/reviews`
 * Returns a list of reviews for a given product. This list does not include any reviews that have been reported by a user viewing them on the client.
 
-#### Query Parameters
+#### Query Parameters:
 
 * `page` - integer - Selects the page of results to return - default 1
 * `count` - integer - Specifies how many results per page to return - default 5
 * `sort` - text - Changes the sort order of reviews to be based on "newest", "helpful", or "relevant"
 * `product_id` - integer - Specifies the product for which to retrieve reviews
 
-Response:
+#### Response:
 
-`Status: 200 OK`
+* `Status: 200 OK`
 
 ```
     {
@@ -113,15 +113,20 @@ Response:
     }
 ```
 
-GET /reviews/meta
-  Returns review metadata for a given product.
+### Retrieve Product Review Metadata
 
-  Query Parameters:
-    product_id  - integer - Required ID of the product for which data shold be returned
+* GET `/reviews/meta`
+* Returns review metadata for a given product.
 
-  Response:
-    STATUS 200 OK
+#### Query Parameter:
 
+* `product_id` - integer - Required ID of the product for which data shold be returned
+
+#### Response:
+
+* `STATUS 200 OK`
+
+```
     {
       "product_id": "2",
       "ratings": {
@@ -149,44 +154,56 @@ GET /reviews/meta
         },
         // ...
       }
+```
 
+### Post a Review
 
-POST /reviews
-  Add a review for the product being viewed.
+* POST `/reviews`
+* Add a review for the product being viewed.
 
-  Body Parameters:
-  product_id - integer - Required ID of the product to post the review for
-  rating - int - Integer 1-5 indicating overall product rating
-  summary - text - Summary text of the review
-  body - text - Continued or full text of the review
-  recommend - bool - Value indicating if the reviewer recommends the product
-  name - text - Username of review writer
-  email - text - Email address of review writer
-  photos - [text] - Array of text URLs that link to images to be shown
-  characteristics - object - Object of keys representing characteristic_id and values representing the review value for that characteristic.
+#### Body Parameters:
+
+* `product_id` - integer - Required ID of the product to post the review for
+* `rating` - int - Integer 1-5 indicating overall product rating
+* `summary` - text - Summary text of the review
+* `body` - text - Continued or full text of the review
+* `recommend` - bool - Value indicating if the reviewer recommends the product
+* `name` - text - Username of review writer
+* `email` - text - Email address of review writer
+* `photos` - [text] - Array of text URLs that link to images to be shown
+* `characteristics` - object - Object of keys representing characteristic_id and values representing the review value for that characteristic.
     ex:  { "14": 5, "15": 5 //...}
 
-  Response:
-    STATUS 201 CREATED
+#### Response:
 
+* `STATUS 201 CREATED`
 
-PUT /reviews/:review_id/helpful
-  Updates a review to show it was found helpful
+### Mark Review as Helpful
 
-  Parameters:
-    review_id - integer - Required ID of the review to update
+* PUT `/reviews/:review_id/helpful`
+* Updates a review to show it was found helpful
 
-    Response:
-      STATUS 204 NO CONTENT
+#### Path Parameter:
 
+* `review_id` - integer - Required ID of the review to update
 
-PUT /reviews/:review_id/report
-  Updates a review to show it was reported. Note, this action does not delete the review, but the review will not be returned in GET to /reviews/ anymore.
+#### Response:
 
-  Parameters:
-    review_id - integer - Required ID of the review to update
+* `STATUS 204 NO CONTENT`
 
-    Response:
-      STATUS 204 NO CONTENT
+### Report Review
 
-## What Next?
+* PUT `/reviews/:review_id/report`
+* Updates a review to show it was reported. Note, this action does not delete the review, but the review will not be returned in GET to /reviews/ anymore.
+
+#### Path Parameter:
+
+* `review_id` - integer - Required ID of the review to update
+
+#### Response:
+
+* `STATUS 204 NO CONTENT`
+
+## Future Improvements
+
+* Containerize with Docker / Kubernetes
