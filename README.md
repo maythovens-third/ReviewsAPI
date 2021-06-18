@@ -13,7 +13,11 @@
 
 ## Introduction
 
-This is the intro
+<ul>
+<li>
+ReviewsAPI is a multi-layered backend system that stores ~25 million records of product review data. This project was commissioned by a client in order to replace their previous backend system with a more performant version. This project was initiated with the goal of serving 1,000 client requests per second while maintaining a 0% error rate.
+</li>
+</ul>
 
 ## Technologies
 <ul>
@@ -28,7 +32,7 @@ This is the intro
 
 ## Getting Started
 
-1. Fork & Clone repository
+1. Fork & clone repository
 2. Navigate to root directory on local machine
 3. Install the project's dependencies
 ```
@@ -38,7 +42,7 @@ npm install
 ```
 npm run server-dev
 ```
-5. You're connected to remote MySQL database! (Unless the database instance is turned off)
+5. Check in terminal that ReviewsAPI is running, and that it is connected to the remote MySQL database. (Remote MySQL instance may be turned off)
 
 ## Overview
 
@@ -48,26 +52,25 @@ npm run server-dev
 
 ## Documentation
 
-This is an API service that provides consumer review information for a project titled Project Catwalk. Project Catwalk is an e-commerce site with a large quantity of clothing and footwear products. As stated previously, this API service provides all information about the ratings & reviews of products in the catalog. Project Catwalk uses 3 separate services for its required data.
+* This is an API service that provides consumer review information for a project titled Project Catwalk. Project Catwalk is an e-commerce site with a large quantity of clothing and footwear products. As stated previously, this API service provides all information about the ratings & reviews of products in the catalog. Project Catwalk uses 3 separate services for its data.
 
-Use of Parameters:
-In an HTTP GET request, the parameters are sent as a query string.
-  ex:  http://example.com/page?parameter=value?also=another
+### List Reviews by Product
 
-In an HTTP POST or PUT request, the parameters are not send with the URI, but in the request body. Parameters noted for each route below follow this standard.
+*  GET `/reviews`
+* Returns a list of reviews for a given product. This list does not include any reviews that have been reported by a user viewing them on the client.
 
+#### Query Parameters
 
-GET /reviews/
-  Returns a list of reviews for a given product. This list does not include any reviews that have been reported by a user viewing them on the client.
-  Query Parameters:
-    page       - integer - Selects the page of results to return            - Default 1
-    count      - integer - Specifies how many results per page to return    - Default 5
-    sort       - text    - Changes the sort order of reviews to be based on "newest", "helpful", or "relevant"
-    product_id - integer - Specifies the product for which to retrieve reviews.
+* `page` - integer - Selects the page of results to return - default 1
+* `count` - integer - Specifies how many results per page to return - default 5
+* `sort` - text - Changes the sort order of reviews to be based on "newest", "helpful", or "relevant"
+* `product_id` - integer - Specifies the product for which to retrieve reviews
 
-  Response:
-      Status: 200 OK
+Response:
 
+`Status: 200 OK`
+
+```
     {
       "product": "2",
       "page": 0,
@@ -108,7 +111,7 @@ GET /reviews/
         // ...
       ]
     }
-
+```
 
 GET /reviews/meta
   Returns review metadata for a given product.
