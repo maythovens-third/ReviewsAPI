@@ -4,12 +4,12 @@
 
 1. [Introduction](#introduction)
 2. [Technologies](#technologies)
-3. [Getting Started](#gettingstarted)
+3. [Getting Started](#getting-started)
 4. [Overview](#overview)
 5. [Challenges](#challenges)
 6. [Scaling](#scaling)
 7. [Documentation](#documentation)
-8. [Future Improvements](#futureimprovements)
+8. [Future Improvements](#future-improvements)
 
 ## Introduction
 
