@@ -1,11 +1,54 @@
 # ReviewsAPI
 
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Technologies](#technologies)
+3. [Getting Started](#gettingstarted)
+4. [Overview](#overview)
+5. [Challenges](#challenges)
+6. [Scaling](#scaling)
+7. [Documentation](#documentation)
+8. [What Next?](#whatsnext)
+
+## Introduction
+
+This is the intro
+
+## Technologies
+<ul>
+<li><a href="https://nodejs.org/en/">Node.js</a></li>
+<li><a href="https://expressjs.com/">Express</a></li>
+<li><a href="https://www.mysql.com/">MySQL</a></li>
+<li><a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud</a></li>
+<li><a href="https://www.nginx.com/">NGINX</a></li>
+<li><a href="https://k6.io/">k6.io</a> - Performance testing in development</li>
+<li><a href="https://loader.io/">Loader.io</a> - Performance testing in production</li>
+</ul>
+
+## Getting Started
+
+1. Fork & Clone repository
+2. Navigate to root directory on local machine
+3. Install the project's dependencies
+```
+npm install
+```
+4. Start server
+```
+npm run server-dev
+```
+5. You're connected to remote MySQL database! (Unless the database instance is turned off)
+
+## Overview
+
+## Challenges
+
+## Scaling
+
+## Documentation
+
 This is an API service that provides consumer review information for a project titled Project Catwalk. Project Catwalk is an e-commerce site with a large quantity of clothing and footwear products. As stated previously, this API service provides all information about the ratings & reviews of products in the catalog. Project Catwalk uses 3 separate services for its required data.
-
-Current Host:
-The API can currently by found at:
-       http://placeholderaddress.com
-
 
 Use of Parameters:
 In an HTTP GET request, the parameters are sent as a query string.
@@ -31,8 +74,7 @@ GET /reviews/
       "count": 5,
       "results": [
         {
-          "review_id": 5,
-          "rating": 3,
+          "review_id": 5,          "rating": 3,
           "summary": "I'm enjoying wearing these shades",
           "recommend": false,
           "response": null,
@@ -143,3 +185,5 @@ PUT /reviews/:review_id/report
 
     Response:
       STATUS 204 NO CONTENT
+
+## What Next?

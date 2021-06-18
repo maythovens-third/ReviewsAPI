@@ -1,9 +1,10 @@
 const mysql = require('mysql');
+const credentials = require('../../dbCredentials.js');
 
 const db = mysql.createConnection({
   host: '18.237.83.39',
   user: 'api',
-  password: 'password1',
+  password: credentials.PASSWORD,
   database: 'reviewAPI'
 })
 
