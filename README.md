@@ -46,9 +46,15 @@ npm run server-dev
 
 ## Overview
 
+![schema](images/sdc_SQL_schema.png)
+
 ## Challenges
 
+![k6_image](images/local_k6.png)
+
 ## Scaling
+
+![horizontal_scaling](images/horizontal_scaling.png)
 
 ## Documentation
 
