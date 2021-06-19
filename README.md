@@ -46,15 +46,27 @@ npm run server-dev
 
 ## Overview
 
+###
+
 ![schema](images/sdc_SQL_schema.png)
 
 ## Challenges
+
+### Choosing DB
+
+### Data ETL
+
+### Reaching 1,000rps
 
 ![k6_image](images/local_k6.png)
 
 ## Scaling
 
+### Horizontal
+
 ![horizontal_scaling](images/horizontal_scaling.png)
+
+### Vertical
 
 ## Documentation
 
